@@ -1,0 +1,97 @@
+makeCacheMatrix results
+---------------------------------------------------------------------------------------------
+$set
+function(y){
+    x <<- y
+    m <<- NULL
+    
+  }
+
+$get
+function()x
+
+$setinverse
+function(inverse) m <<- inverse
+
+$getinverse
+function() m
+
+#Afer I called the main function with parethesis
+makeCacheMatrix()
+$set
+function(y){
+    x <<- y
+    m <<- NULL
+    
+  }
+<environment: 0x000001d08340fe00>
+
+$get
+function()x
+<environment: 0x000001d08340fe00>
+
+$setinverse
+function(inverse) m <<- inverse
+<environment: 0x000001d08340fe00>
+
+$getinverse
+function() m
+<environment: 0x000001d08340fe00>
+
+cacheSolve results
+-------------------------------------------------------------------------------------------
+>   my_matrix <- matrix(c(1,2,3,4), nrow =2, ncol=2)
+> my_matrix
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+>   x<- makeCacheMatrix(my_matrix)
+> x
+$set
+function(y){
+    x <<- y
+    m <<- NULL
+    
+  }
+<bytecode: 0x000001d087ef42f0>
+<environment: 0x000001d087d31a60>
+
+$get
+function()x
+<bytecode: 0x000001d087f6a4a0>
+<environment: 0x000001d087d31a60>
+
+$setinverse
+function(inverse) m <<- inverse
+<bytecode: 0x000001d088000e98>
+<environment: 0x000001d087d31a60>
+
+$getinverse
+function() m
+<bytecode: 0x000001d088060068>
+<environment: 0x000001d087d31a60>
+
+>   cacheSolve(x)
+NULL
+>   m <-x$getinverse()
+> m
+NULL
+>   if(!is.null(m)){
++     message("getting the cached data")
++     return(m)
++   }
+>   data <- x$get()
+> data
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+>   m <- solve(data)
+> m
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+>   x$setinverse(m)
+>   m
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
